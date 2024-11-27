@@ -10,11 +10,11 @@ import Register from './modules/authentication/components/Register/Register'
 import MasterLayout from './modules/shared/components/MasterLayout/MasterLayout'
 import Dashboard from './modules/Dashboard/Dashboard'
 import ProjectLists from './modules/project/components/ProjectLists/ProjectLists'
-import FormProject from './modules/project/components/FormProject/FormProject'
 import TaskLists from './modules/tasks/components/TaskLists/TaskLists'
-import FormTask from './modules/tasks/components/FormTask/FormTask'
 import UserLists from './modules/users/components/UserLists/UserLists'
 import NotFound from './modules/shared/components/NotFound/NotFound'
+import ProjectForm from './modules/project/components/ProjectForm/ProjectForm'
+import TaskForm from './modules/tasks/components/TaskForm/TaskForm'
 
 function App() {
 
@@ -41,9 +41,9 @@ function App() {
         {index: true, element: <Dashboard/>},
         {path: 'dashboard', element: <Dashboard/>},
         {path: 'projects', element: <ProjectLists/>},
-        {path: 'create-project', element: <FormProject/>},
+        {path: 'create-project/:projectId', element: <ProjectForm/>},
         {path: 'tasks', element: <TaskLists/>},
-        {path: 'create-task', element: <FormTask/>},
+        {path: 'create-task/:taskId', element: <TaskForm/>},
         {path: 'usres', element: <UserLists/>}
       ]
     }
