@@ -41,7 +41,7 @@ function App() {
         {index: true, element: <Dashboard/>},
         {path: 'dashboard', element: <Dashboard/>},
         {path: 'projects', element: <ProjectLists/>},
-        {path: 'create-project', element: <ProjectForm/>},
+        {path: 'projects/new-project', element: <ProjectForm/>},
         {path: 'projects/:projectId', element: <ProjectForm/>},
         {path: 'tasks', element: <TaskLists/>},
         {path: 'create-task', element: <TaskForm/>},
