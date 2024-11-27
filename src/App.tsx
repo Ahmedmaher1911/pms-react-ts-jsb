@@ -40,10 +40,12 @@ function App() {
       children: [
         {index: true, element: <Dashboard/>},
         {path: 'dashboard', element: <Dashboard/>},
-        {path: 'projects/:projectId', element: <ProjectLists/>},
+        {path: 'projects', element: <ProjectLists/>},
         {path: 'create-project', element: <ProjectForm/>},
-        {path: 'tasks/:taskId', element: <TaskLists/>},
+        {path: 'projects/:projectId', element: <ProjectForm/>},
+        {path: 'tasks', element: <TaskLists/>},
         {path: 'create-task', element: <TaskForm/>},
+        {path: 'tasks/:taskId', element: <TaskForm/>},
         {path: 'usres', element: <UserLists/>}
       ]
     }
