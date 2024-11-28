@@ -1,0 +1,101 @@
+.sidebar-container .ps-sidebar-container {
+  background-color: #0e382f;
+}
+
+.sidebar-container .ps-sidebar-container a {
+  color: #fff;
+}
+.sidebar-container img {
+  width: 7rem !important;
+}
+
+.sidebar-container img:hover {
+  background-color: #0e382f;
+}
+.logo-menu-item {
+  background-color: #0e382f !important;
+}
+.logo-menu-item .ps-menu-button {
+  background-color: #0e382f !important;
+}
+.sidebar-container .ps-menu-button:hover {
+  background-color: rgba(47, 140, 96, 0.5) !important;
+}
+.logo-menu-item:hover {
+  background-color: #0e382f !important;
+}
+
+.fa-solid.fa-user-group {
+  transform: scaleX(-1); /* Flip horizontally to flip the second icon */
+}
+.toggle-icon {
+  position: absolute;
+  top: 1%;
+  right: -1px; /* Position it just outside the sidebar */
+  width: 30px; /* Adjust for your design */
+  height: 30px;
+  background-color: #ef9b28;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-icon i {
+  font-size: 16px;
+  color: #333;
+}
+/* Header */
+.headercontainer {
+  border-radius: 1rem; /* 16px */
+  background-image: url("./assets/home-bg.png");
+  background-position: center center;
+  color: #fff;
+  position: relative;
+  height: 60vh; /* 60vh -> 36rem (assuming 1rem = 16px, and 60vh is too large, adjust as needed) */
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 90%;
+}
+
+body {
+  background-color: #f5f5f5 !important;
+}
+
+.avatar {
+  width: 100%;
+}
+
+/* Navbar  */
+.nav {
+  height: 3.125rem;
+}
+
+/* Profile image in a circular shape with background */
+.profile-img {
+  width: 3.125rem !important;
+  height: 3.125rem !important;
+  background-color: #f4ce9b;
+  border-radius: 50%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.text-profile {
+  color: #0e382f;
+}
+
+.vertical-line {
+  width: 0.0625rem;
+  height: 2.5rem;
+  background-color: #9a9a9a;
+}
