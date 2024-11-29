@@ -1,0 +1,57 @@
+.containerImg {
+  height: 100vh;
+  background-image: url(./../../../../assets/images/AuthBackground.svg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.fromContainer {
+  background-color: rgba(49, 89, 81, 0.8);
+  border-radius: 15px;
+  padding: 3%;
+  
+  p {
+    color: white;
+    margin: 0;
+  }
+  h1 {
+    color: #ef9b28;
+  }
+
+  input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: white;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+.inbut::placeholder {
+  color: #ef9b28;
+}
+input:focus {
+  background-color: transparent !important;
+  border: none !important;
+}
+.login-btn {
+  background-color: #ef9b28 !important;
+  width: 100%;
+  border-radius: 30px;
+  margin-top: 20px;
+}
+.input-group {
+  position: relative;
+}
+.visbiltyIcon {
+  position: absolute;
+  top: 5%;
+  color: #8391a1;
+  cursor: pointer;
+  right: 10px;
+  
+}
