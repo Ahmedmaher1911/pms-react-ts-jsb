@@ -5,19 +5,24 @@ import { useForm } from "react-hook-form"
 import { AUTH_URL, axiosInstance } from "../../../../services/EndPoints"
 import { toast } from "react-toastify"
 
+interface loginForm {
+  oldPassword: string;
+  newPassword: string;
+confirmNewPassword:string
+}
 export default function ChangePassword() {
   const [isPasswordValid, setIsPasswordValid] = useState(false)
   const [isNewPassValid, setIsNewPassValid] = useState(false)
   const [isConfirmPassValid, setIsConfirmPassValid] = useState(false)
   const {register, formState:{errors}, handleSubmit} = useForm()
 
-  const onSumbit  = async (data:any) =>{
+  const onSumbit  = async (data:loginForm) =>{
 
     try {
       await axiosInstance.put(AUTH_URL.CHANGE_PASSWORD, data);
       toast.success("Login is successfully");
       
-    } catch (error:any) {
+    } catch (error:loginForm) {
       toast.error(error.response?.data?.message);
     }
   
@@ -50,11 +55,14 @@ export default function ChangePassword() {
         required:"Old Password Is Required"
        })} type={isPasswordValid? "text" : "password" } 
        placeholder='Enter your Old Password'/>
+       <button type="button">
        <i 
        onClick={()=>setIsPasswordValid((prev) => !prev)} 
        onMouseDown={(e)=>e.preventDefault()}
        onMouseUp={(e)=> e.preventDefault()}
        className={isPasswordValid ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+       </button>
+      
        </div>
        {errors.oldPassword && <span className="text-danger px-2  d-block">
         {errors.oldPassword.message}</span>
@@ -65,11 +73,15 @@ export default function ChangePassword() {
           required:"New Password Is Required"
          })}
         type={isNewPassValid?"text" : "password"} placeholder='Enter your New Password'/>
-       <i
-        onClick={()=>setIsNewPassValid((prev) => !prev)} 
+
+        <button type="button"  onClick={()=>setIsNewPassValid((prev) => !prev)} 
         onMouseDown={(e)=>e.preventDefault()}
-        onMouseUp={(e)=> e.preventDefault()}
+        onMouseUp={(e)=> e.preventDefault()}>
+        <i
+       
         className={isNewPassValid ? "fa fa-eye":"fa fa-eye-slash"}></i>
+        </button>
+     
        </div> 
        {errors.newPassword && <span className="text-danger px-2  d-block">
         {errors.newPassword.message}</span>
@@ -81,11 +93,14 @@ export default function ChangePassword() {
          })}
        type={isConfirmPassValid ? "text" : "password"}
         placeholder='Confirm New Password'/>
-       <i
+        <button type="button">
+        <i
         onClick={()=>setIsConfirmPassValid((prev) => !prev)} 
         onMouseDown={(e)=>e.preventDefault()}
         onMouseUp={(e)=> e.preventDefault()}
         className={isConfirmPassValid ? "fa fa-eye":"fa fa-eye-slash"}></i>
+        </button>
+      
        </div>
        {errors.confirmNewPassword && <span className="text-danger px-2  d-block">
         {errors.confirmNewPassword.message}</span>
