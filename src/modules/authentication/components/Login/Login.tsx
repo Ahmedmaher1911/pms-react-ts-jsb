@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AUTH_URL, axiosInstanceUrl } from "../../../../services/EndPoints";
 import { useState } from "react";
+import { EMAIL_VALIDATION, PASWORD_VALIDATION } from '../../../../services/Validation/Validation';
+
 
 interface loginForm {
   email: string;
@@ -47,13 +49,7 @@ export default function Login() {
               placeholder="Email"
               aria-label="email"
               aria-describedby="basic-addon1"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                  message: "Invalid email address",
-                },
-              })}
+              {...register("email", EMAIL_VALIDATION)}
             />
             {errors.email && (
               <span className="text-danger">{errors.email.message}</span>
@@ -66,17 +62,9 @@ export default function Login() {
               placeholder="password"
               aria-label="password"
               aria-describedby="basic-addon1"
-              {...register("password", {
-                required: "Password is required",
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message:
-                    "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-                },
-              })}
+              {...register("password", PASWORD_VALIDATION)}
             />
-            <i
+            <button
               onClick={() => {
                 setIsPasswordVisible(!isPasswordVisible);
               }}
@@ -91,7 +79,7 @@ export default function Login() {
               ) : (
                 <i className="fa-solid fa-eye-slash"></i>
               )}
-            </i>
+            </button>
             {errors.password && (
               <span className="text-danger ">{errors.password.message}</span>
             )}
