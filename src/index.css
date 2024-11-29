@@ -1,3 +1,8 @@
+:root {
+    --main-color: #ef9b28;
+    --dark-color: #314a59;
+    --white-color: #fff;
+  }
 .auth-container {
     background-image: url(./assets/images/background.svg);
     background-size: cover;
@@ -15,19 +20,19 @@
     border-width: 0;
     }
 .auth-container .container {
-    background-color: #314a59;
+    background-color: var(--dark-color);
     padding: 30px;
 }
 .auth-container .title span {
-    color: white;
+    color: var(--white-color);
 }
 
 
 .auth-container .title h3{
-    color: #ef9b28;
+    color: var(--main-color);
 }
 .auth-container form {
-    background-color: #314a59;
+    background-color: var(--dark-color);
 }
 .auth-container .input-file {
     width: 50px;
@@ -50,7 +55,7 @@
 }
 
 .auth-container form label {
-    color: #ef9b28;
+    color: var(--main-color);
 }
 .auth-container form  input{
     background-color: rgba(49, 89, 81, 0.5);
@@ -62,11 +67,11 @@
 
 }
 .auth-container form  input::placeholder{
-    color: white;
+    color: var(--white-color);
 }
 .auth-container form .btn-submit {
-    background-color: #ef9b28;
-    color: white;
+    background-color: var(--main-color);
+    color: var(--white-color);
     border-radius: 25px;
     width: 75%;
     display: flex;

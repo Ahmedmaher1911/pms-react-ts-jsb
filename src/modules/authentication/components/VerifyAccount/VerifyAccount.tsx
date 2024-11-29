@@ -8,6 +8,7 @@ import logo from '../../../../assets/images/logo.png';
 interface IFormInput {
   email: string;
   code: string;
+  
 }
 
 export default function VerifyAccount() {
@@ -20,13 +21,13 @@ export default function VerifyAccount() {
 
   const onSubmit = async (data:any) => {
     try {
-      let response:any =await axiosInstance.put(AUTH_URL.VERIFY_ACCOUNT,data);
+      let response =await axiosInstance.put<IFormInput>(AUTH_URL.VERIFY_ACCOUNT,data);
     
-      toast.success('good registeration')
+      toast?.success(response?.data?.message)
       navigate('/login')
       
     } catch (error:any) {
-      toast.error(error.response.data.message)
+      toast?.error(error.response.data.message)
     }
   }
   return (

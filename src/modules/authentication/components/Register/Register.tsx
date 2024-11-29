@@ -8,7 +8,7 @@ import logo from '../../../../assets/images/logo.png';
 
 
 
-interface IFormInput {
+interface RegisterResponse {
   userName: string;
   email: string;
   country: string;
@@ -16,6 +16,7 @@ interface IFormInput {
   password: string;
   confirmPassword: string;
   profileImage: FileList;
+ 
 }
 
 export default function Register() {
@@ -27,7 +28,7 @@ export default function Register() {
     formState:{errors},
     handleSubmit,
     
-  } = useForm<IFormInput>({mode:"onChange"});
+  } = useForm<RegisterResponse>({mode:"onChange"});
 
   
   const onSubmit = async (data:any) => {
@@ -43,12 +44,12 @@ export default function Register() {
 
 
     try {
-      let response:any =await axiosInstance.post(AUTH_URL.REGISTER,formData);
-      toast.success('please verify your Registeration');
+      let response =await axiosInstance.post<RegisterResponse>(AUTH_URL.REGISTER,formData);
+      toast?.success(response.data.message);
       navigate('/verify-account');
-      // console.log(formData)
+      console.log(response.data.message)
     } catch (error:any) {
-      toast.error(error.response.data.message)
+      toast?.error(error.response.data.message)
       // console.log(error)
     }
   }
@@ -90,7 +91,7 @@ export default function Register() {
               })}
               />
             </div>
-            {errors.userName&&<span className='text-danger'>{errors.userName.message}</span>}
+            {errors?.userName&&<span className='text-danger'>{errors.userName.message}</span>}
             {/* country  */}
             <div className="input-group mb-2 input-gr">
             <label>Country</label>
@@ -107,7 +108,7 @@ export default function Register() {
               })}
               />
             </div>
-            {errors.country&&<span className='text-danger'>{errors.country.message}</span>}
+            {errors?.country&&<span className='text-danger'>{errors.country.message}</span>}
             {/* password  */}
             <div className="input-group mb-2 input-gr">
               <label>Password</label>
@@ -128,7 +129,7 @@ export default function Register() {
                 <i className={`fa-solid ${isPasswordVisible ?"fa-eye" :"fa-eye-slash"}`} aria-hidden='true'></i>
               </button>
             </div>
-            {errors.password&&<span className='text-danger'>{errors.password.message}</span>}
+            {errors?.password&&<span className='text-danger'>{errors.password.message}</span>}
           
               </div>
               {/* email  */}
@@ -145,13 +146,13 @@ export default function Register() {
               />
               
             </div>
-            {errors.email&&<span className='text-danger'>{errors.email.message}</span>}
+            {errors?.email&&<span className='text-danger'>{errors.email.message}</span>}
              {/* phoneNumber  */}
             <div className="input-group mb-2 input-gr">
             <label>Phone Number</label>
               <input 
               
-              type='number'
+              type='tel'
               className="" 
               placeholder="Phone Number" 
               aria-label="number" 
@@ -163,7 +164,7 @@ export default function Register() {
               />
               
             </div>
-            {errors.phoneNumber&&<span className='text-danger'>{errors.phoneNumber.message}</span>}
+            {errors?.phoneNumber&&<span className='text-danger'>{errors.phoneNumber.message}</span>}
             {/* confirmPassword */}
             <div className="input-group mb-2 input-gr">
             <label>Confirm Password</label>
@@ -183,7 +184,7 @@ export default function Register() {
                 <i className={`fa-solid ${isPasswordVisible ?"fa-eye" :"fa-eye-slash"}`} aria-hidden='true'></i>
               </button>
             </div>
-            {errors.confirmPassword &&<span className='text-danger'>{errors.confirmPassword.message}</span>}
+            {errors?.confirmPassword &&<span className='text-danger'>{errors.confirmPassword.message}</span>}
               </div>
               </div>
             
