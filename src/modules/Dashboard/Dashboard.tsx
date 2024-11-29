@@ -1,7 +1,14 @@
-export default function Dashboard() {
+import Header from "../shared/components/Header/Header";
+
+export default function Dashboard({}) {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
-  )
+    <>
+      <Header
+        title={`welcome `}
+        description={
+          "This is a welcoming screen for the entry of the application , you can now see the options"
+        }
+      />
+    </>
+  );
 }
