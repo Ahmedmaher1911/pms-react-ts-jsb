@@ -10,11 +10,11 @@
   --sidebar-links-light: #fff;
   --table-color:#315951E5;
   }
-.auth-container {
+/* .auth-container {
     background-image: url(./assets/images/background.svg);
     background-size: cover;
     background-position: center center;
-}
+} */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -26,7 +26,7 @@
     white-space: nowrap;
     border-width: 0;
     }
-.auth-container .container {
+/* .auth-container .container {
     background-color: var(--dark-color);
     padding: 30px;
 }
@@ -55,13 +55,13 @@
 }
 .auth-container form .form-group {
     width: 48%;
-}
-.auth-container form .input-gr {
+} */
+/* .auth-container form .input-gr {
     display: flex;
     flex-direction: column;
-}
+} */
 
-.auth-container form label {
+/* .auth-container form label {
     color: var(--main-color);
 }
 .auth-container form  input{
@@ -75,8 +75,8 @@
 }
 .auth-container form  input::placeholder{
     color: var(--white-color);
-}
-.auth-container form .btn-submit {
+} */
+/* .auth-container form .btn-submit {
     background-color: var(--main-color);
     color: var(--white-color);
     border-radius: 25px;
@@ -84,7 +84,7 @@
     display: flex;
     justify-content: center;
     margin: auto;
-}
+} */
 
   
 .sidebar-container .ps-sidebar-container {
