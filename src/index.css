@@ -8,6 +8,7 @@
   --vertical-line-grey: #9a9a9a;
   --profile-img: #f4ce9b;
   --sidebar-links-light: #fff;
+  --table-color:#315951E5;
   }
 .auth-container {
     background-image: url(./assets/images/background.svg);
@@ -244,4 +245,18 @@ body {
     border-color: rgba(#ff4757, 0.3);
   }
 }
-
+/* projects */
+.btn-add{
+  background-color: var(--main-color);
+  border: none;
+  padding: 0 30px;
+  border-radius: 30px;
+  color: var(--white-color);
+}
+table {
+  width: 100%;
+}
+table thead{
+  background-color: var(--table-color);
+  color: var(--white-color);
+}
