@@ -1,24 +1,30 @@
 import { useForm } from "react-hook-form";
 import authLogo from '../../../../assets/images/logo-pms.png'
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { AUTH_URL, axiosInstanceURL } from "../../../../services/EndPoints";
+import { useNavigate } from "react-router-dom";
+import { EmailValidation } from "../../../../services/Validations";
+
+interface ForgetData {
+  email: string
+}
 
 export default function ForgetPassword() {
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ForgetData) => {
     try {
       const res = await axiosInstanceURL.post(AUTH_URL.FORGET_PASSWORD, data)
       console.log(res);
-      Navigate('/reset-password', {state: {email: data.email}})
+      navigate('/reset-password', {state: {email: data.email}})
+      toast.success(res?.data?.message)
     } catch (error: any) {
-      toast.error(error.response.data.message)      
+      toast.error(error?.response?.data?.message)      
     }    
   }
 
@@ -37,13 +43,7 @@ export default function ForgetPassword() {
               <label htmlFor='email'>E-mail</label>
               <br/>
               <input type="email" id='email' placeholder='Enter your E-mail'
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: 'Invalid email format'
-                }
-              })}/>
+              {...register('email', EmailValidation)}/>
             </div>
             {errors?.email && <p className='text-danger mt-2'>{errors?.email?.message}</p>}
             <div className='col-12 btn'>

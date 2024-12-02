@@ -2,29 +2,37 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import authLogo from '../../../../assets/images/logo-pms.png'
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
 import { AUTH_URL, axiosInstanceURL } from "../../../../services/EndPoints";
+import { useLocation, useNavigate } from "react-router-dom";
+import { EmailValidation } from "../../../../services/Validations";
+
+interface ResetData {
+  email: string,
+  seed: string,
+  password: string,
+  confirmPassword: string
+}
 
 export default function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password')
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password')
-  const Navigate = useNavigate()
-  const Location = useLocation()
+  const navigate = useNavigate()
+  const location = useLocation()
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
     watch
-  } = useForm({defaultValues: Location.state});
+  } = useForm({defaultValues: location.state});
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ResetData) => {
     try {
       const res = await axiosInstanceURL.post(AUTH_URL.RESET_PASSWORD, data)
       console.log(res);
-      Navigate('/login')
+      navigate('/login')
       toast.success(res?.data?.message)
     } catch (error: any) {
-      toast.error(error.response.data.message)      
+      toast.error(error?.response?.data?.message)      
     }    
   }
 
@@ -52,14 +60,8 @@ export default function ResetPassword() {
             <div className='col-12 input'>
               <label htmlFor='email'>E-mail</label>
               <br/>
-              <input type="email" id='email' placeholder='Enter your E-mail'
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: 'Invalid email format'
-                }
-              })}/>
+              <input type="email" id='email' placeholder='Enter your E-mail' disabled={true}
+              {...register('email', EmailValidation)}/>
             </div>
             {errors?.email && <p className='text-danger mt-2'>{errors?.email?.message}</p>}
             <div className='col-12 input'>
@@ -113,4 +115,3 @@ export default function ResetPassword() {
     </div>
   )
 }
-
