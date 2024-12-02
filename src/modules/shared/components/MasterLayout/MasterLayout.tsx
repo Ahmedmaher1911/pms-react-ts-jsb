@@ -1,19 +1,18 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../../../shared/components/Navbar/Navbar";
+import SideBar from "../Sidebar/Sidebar";
 
 export default function MasterLayout() {
   return (
-    <div className="master-container">
-      <div className="navbar">
-        <h1>Nav Bar</h1>
+    <div className="master-container d-flex">
+      <div>
+        <SideBar />
       </div>
-      <div className="content d-flex">
-        <div className="sidebar bg-info">
-          <h1>side bar</h1>
-        </div>
-        <div className="content-change bg-danger w-100">
-          <Outlet/>
-        </div>
+      <div className="w-100">
+        {" "}
+        <Navbar />
+        <Outlet />
       </div>
     </div>
-  )
+  );
 }

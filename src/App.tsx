@@ -15,6 +15,7 @@ import UserLists from './modules/users/components/UserLists/UserLists'
 import NotFound from './modules/shared/components/NotFound/NotFound'
 import ProjectForm from './modules/project/components/ProjectForm/ProjectForm'
 import TaskForm from './modules/tasks/components/TaskForm/TaskForm'
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+    <ToastContainer/>
       <RouterProvider router={router}></RouterProvider>
     </>
   )
