@@ -15,6 +15,7 @@ interface projectData {
 export default function ProjectLists() {
   const [projectsList, setProjectsList] = useState([]);
   const [titleValue , setTitleValue] = useState("");
+  const [arrayOfPages, setArrayOfPages] = useState<string[]>([]);
   const [selectedId, setSelectedId] = useState(0);
   const [show, setShow] = useState(false);
 
@@ -28,13 +29,13 @@ export default function ProjectLists() {
       getAllProjects(input.target.value)
      }
 
-  let getAllProjects = async(title?:string) => {
+  let getAllProjects = async(title?:string, pageNo?:string ,pageSize?:number) => {
     try {
       
-      let response = await axiosInstance.get(PROJECT_URL.GIT_PROJECTS_FOR_MANAGER,{params:{pageSize:10,pageNumber:1,title:title}});
-      // console.log(response.data.data);
-      setProjectsList(response.data.data);
-   
+      let response = await axiosInstance.get(PROJECT_URL.GIT_PROJECTS_FOR_MANAGER,{params:{pageSize: pageSize,pageNumber:pageNo,title:title}});
+      console.log(response?.data);
+      setProjectsList(response?.data.data);
+      setArrayOfPages(Array<string>(response.data.totalNumberOfPages).fill().map((_,i) => i+1))
     } catch (error) {
      console.log(error)
     }
@@ -44,12 +45,12 @@ export default function ProjectLists() {
     try {
       let response = axiosInstance.delete(PROJECT_URL.DELETE_PROJECT(selectedId)
       );
-      toast.success('Item deleted successfuly');
+      toast?.success('Item deleted successfuly');
       getAllProjects();
     } catch (error) {
 
       console.log(error);
-      toast.error(error.response.data.message);
+      toast?.error(error.response.data.message);
     }
     
     handleClose()
@@ -98,7 +99,8 @@ export default function ProjectLists() {
 
       <Dropdown.Menu>
         <Dropdown.Item href="#/action-1">
-         <i className="fa-solid fa-trash mx-3 " onClick={()=> handleShow(project.id)}></i>
+        <button onClick={()=> handleShow(project.id)}><i className="fa-solid fa-trash mx-3 " ></i></button>
+         
          <span>delete</span>
          </Dropdown.Item>
         <Dropdown.Item href="#/action-2">
@@ -134,6 +136,23 @@ export default function ProjectLists() {
           </Button>
         </Modal.Footer>
       </Modal>
+         
+    <nav aria-label="Page navigation example">
+  <ul className="pagination">
+    <li className="page-item">
+      <a className="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {arrayOfPages.map((pageNo) =>(<li key={pageNo} onClick={() => getAllProjects(pageNo, 5)}
+     className="page-item"><a className="page-link" href="#">{pageNo}</a></li>))}
+    <li className="page-item">
+      <a className="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
        {/* ) 
        : <h1>no data</h1> } */}
     
