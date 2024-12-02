@@ -281,7 +281,7 @@ body {
     border-color: rgba(#ff4757, 0.3);
   }
 }
-<<<<<<< HEAD
+
 /* projects */
 .btn-add{
   background-color: var(--main-color);
@@ -297,5 +297,4 @@ table thead{
   background-color: var(--table-color);
   color: var(--white-color);
 }
-=======
->>>>>>> 62f7019d42297ee7fd36b7999462599be2132c55
+
