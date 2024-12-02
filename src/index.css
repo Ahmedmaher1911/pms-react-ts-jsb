@@ -10,11 +10,7 @@
   --sidebar-links-light: #fff;
   --table-color:#315951E5;
   }
-/* .auth-container {
-    background-image: url(./assets/images/background.svg);
-    background-size: cover;
-    background-position: center center;
-} */
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -26,65 +22,6 @@
     white-space: nowrap;
     border-width: 0;
     }
-/* .auth-container .container {
-    background-color: var(--dark-color);
-    padding: 30px;
-}
-.auth-container .title span {
-    color: var(--white-color);
-}
-
-
-.auth-container .title h3{
-    color: var(--main-color);
-}
-.auth-container form {
-    background-color: var(--dark-color);
-}
-.auth-container .input-file {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-image: url(./assets/images/prfile-img.svg);
-    text-align: center;
-    background-size: cover;
-    background-position: center center;
-    margin: auto;
-    display: flex
-;
-}
-.auth-container form .form-group {
-    width: 48%;
-} */
-/* .auth-container form .input-gr {
-    display: flex;
-    flex-direction: column;
-} */
-
-/* .auth-container form label {
-    color: var(--main-color);
-}
-.auth-container form  input{
-    background-color: rgba(49, 89, 81, 0.5);
-    border: none;
-    border-bottom: 1px solid  #ffffff54;
-    width: 100%;
-    padding-inline: 12px;
-    padding-block: 8px;
-
-}
-.auth-container form  input::placeholder{
-    color: var(--white-color);
-} */
-/* .auth-container form .btn-submit {
-    background-color: var(--main-color);
-    color: var(--white-color);
-    border-radius: 25px;
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-} */
 
   
 .sidebar-container .ps-sidebar-container {
