@@ -1,0 +1,43 @@
+.title {
+    padding-block: 1rem;
+}
+.link {
+    text-decoration: none;
+    color: #0E382F;
+}
+.header {
+    font-size: 1.5rem;
+
+}
+.form {
+    background: white !important;
+}
+.form input, .form select {
+    margin-block: 1rem;
+    padding-left: 10px;
+    outline:2px solid #ECECEC;
+    border-radius:1rem ;
+    border: none;
+
+}
+.form .inputName {
+    height: 3rem;
+}
+.form .inputDes {
+    height: 5rem;
+
+}
+.form label {
+    font-size: 1rem;
+}
+.form input::placeholder {
+    color: #C1C1C1;
+}
+.form select {
+    box-shadow: none !important;
+    border: none !important;
+    outline:2px solid #ECECEC !important;
+    margin-block: 20px;
+    height: 3.4rem;
+
+}

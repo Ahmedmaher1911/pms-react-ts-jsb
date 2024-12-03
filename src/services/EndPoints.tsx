@@ -39,3 +39,7 @@ export const TASKSURL = {
   PUT_TASK: (id: number) => `/Task/${id}`,
   DELETE_TASK: (id: number) => `/Task/${id}`,
 };
+
+export const USERSURL = {
+  GET_USERS: "/Users/"
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { axiosInstance, TASKSURL } from "../../../../services/EndPoints";
 import { Button, Dropdown, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface TaskData {
   title: string;
@@ -88,7 +89,7 @@ export default function TasksLists() {
     <>
       <div className="d-flex justify-content-between p-4 bg-white ">
         <h3>Tasks</h3>
-        <button className="btn-add">+ Add New Task</button>
+        <Link to='/create-task' className="btn-add">+ Add New Task</Link>
       </div>
 
       <div className="bg-white m-5">
