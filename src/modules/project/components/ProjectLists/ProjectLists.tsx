@@ -4,10 +4,21 @@ import { Button, Dropdown, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "../ProjectLists/TasksAndProjectsLists.css";
 
+// Define TaskData interface
+interface TaskData {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  creationDate: string;
+  modificationDate: string;
+}
+
+// Update ProjectData interface
 interface ProjectData {
   title: string;
   description: string;
-  task: object[];
+  task: TaskData[]; // Corrected type
   id: number;
 }
 

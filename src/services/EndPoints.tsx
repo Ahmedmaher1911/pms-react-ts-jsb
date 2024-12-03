@@ -14,7 +14,7 @@ export const axiosInstance = axios.create({
 
 // User Endpoints
 export const AUTH_URL = {
-  LOGIN: `${baseURL}/Users/Login`,
+  LOGIN: `/Users/Login`,
   REGISTER: `/Users/Register`,
   FORGET_PASSWORD: `/Users/Reset/Request`,
   RESET_PASSWORD: `/Users/Reset`,

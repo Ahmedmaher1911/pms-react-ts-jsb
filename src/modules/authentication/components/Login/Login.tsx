@@ -29,7 +29,7 @@ export default function Login() {
 
   const onSubmit = async (data: loginForm) => {
     try {
-      const response = await axios.post(AUTH_URL.LOGIN, data);
+      const response = await axiosInstance.post(AUTH_URL.LOGIN, data);
       localStorage.setItem("tokenums", response.data.token);
       console.log(response);
       navigate("/dashboard");
