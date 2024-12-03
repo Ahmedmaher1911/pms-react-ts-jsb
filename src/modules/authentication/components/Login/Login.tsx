@@ -2,17 +2,24 @@ import styles from "./Login.module.css";
 import imgLogo from "./../../../../assets/images/PMSLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { AUTH_URL, axiosInstance, axiosInstanceUrl } from "../../../../services/EndPoints";
+import {
+  AUTH_URL,
+  axiosInstance,
+  axiosInstanceUrl,
+} from "../../../../services/EndPoints";
 import { useState } from "react";
-import { EMAIL_VALIDATION, PASWORD_VALIDATION } from '../../../../services/Validation/Validation';
-
+import {
+  EMAIL_VALIDATION,
+  PASWORD_VALIDATION,
+} from "../../../../services/Validation/Validation";
+import axios from "axios";
 
 interface loginForm {
   email: string;
   password: string;
 }
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const {
     register,
@@ -22,10 +29,10 @@ export default function Login() {
 
   const onSubmit = async (data: loginForm) => {
     try {
-      const response = await axiosInstanceUrl.post(AUTH_URL.LOGIN, data);
+      const response = await axiosInstance.post(AUTH_URL.LOGIN, data);
       localStorage.setItem("tokenums", response.data.token);
       console.log(response);
-      navigate("/dashboard")
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -71,9 +78,7 @@ export default function Login() {
               }}
               onMouseDown={(e) => e.preventDefault()}
               onMouseUp={(e) => e.preventDefault()}
-              
               className={`${styles["visbiltyIcon"]} `}
-              
             >
               {isPasswordVisible ? (
                 <i className="fa-solid fa-eye"></i>
