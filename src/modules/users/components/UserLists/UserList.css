@@ -69,6 +69,7 @@
     cursor: pointer;
     padding: 0px 15px;
     text-align: left;
+    /* text-align: left; */
 }
 .users-container .users-list .menu li i {
     padding: 0px 15px 0px 0px !important;
