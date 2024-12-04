@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./CSS/TaskForm.module.css";
 import { useForm } from "react-hook-form";
 import { axiosInstance, PROJECT_URL, TASKSURL, USERSURL } from "../../../../services/EndPoints";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
 interface AddTasks {
@@ -11,14 +12,23 @@ interface AddTasks {
   employeeId: string | number,
   projectId: string | number,
 }
+
 const FormAddAndEdit = () => {
   const [projects, setProjects] = useState();
   const [users, setUsers] = useState();
-  const {register, handleSubmit, formState:{isSubmitting, errors}} = useForm();
+  const {register, handleSubmit, setValue,formState:{isSubmitting, errors}} = useForm();
+  const params = useParams()
+  const tasksId = params.taskId
+  const isTasks = tasksId == "create-task"
+  const navigate = useNavigate()
 
   const onSumbit = async(data:AddTasks)=>{
     try {
-      await axiosInstance.post(TASKSURL.POST_TASK,data)
+      await axiosInstance[isTasks? "post" : "put"]( isTasks? TASKSURL.POST_TASK 
+        : TASKSURL.PUT_TASK(tasksId),data
+      )
+      toast.success("Add Tasks")
+      navigate("/tasks")
 
     } catch (error) {
       console.log(error);
@@ -37,11 +47,27 @@ const FormAddAndEdit = () => {
     setUsers(res.data.data)
   }
   useEffect(() => {
-    getprojects();
-    getUsers();
+    const fetchData = async () => {
+      try {
+        if (!isTasks) {
+          const res = await axiosInstance.get(TASKSURL.GET_TASK(tasksId));
+          const tasks = res.data;
   
-   
-  }, [])
+          setValue("title", tasks?.title);
+          setValue("description", tasks?.description);
+          setValue("employeeId", tasks?.employee);
+          setValue("projectId", tasks?.project?.title);
+        }
+  
+        await getprojects();
+        await getUsers();
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
+  }, [tasksId, setValue]); 
   
   return (
     <>
@@ -115,9 +141,11 @@ const FormAddAndEdit = () => {
             {errors.employeeId  && (
               <p className="text-danger">{errors.employeeId.message}</p>
             )}
-            {errors.projectId  && (
+           <div className="text-end">
+           {errors.projectId  && (
               <p className="text-danger">{errors.projectId.message}</p>
             )}
+           </div>
             </div>
            
             <div className="d-flex justify-content-between my-3">

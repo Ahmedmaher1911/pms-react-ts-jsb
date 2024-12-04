@@ -36,7 +36,7 @@ export const TASKSURL = {
   GET_TASKALL: `/Task/manager`,
   GET_TASK: (id: number) => `/Task/${id}`,
   POST_TASK: `/Task`,
-  PUT_TASK: (id: number) => `/Task/${id}`,
+  PUT_TASK: (id: string) => `/Task/${id}`,
   DELETE_TASK: (id: number) => `/Task/${id}`,
 };
 

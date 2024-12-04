@@ -17,6 +17,9 @@ export default function TasksLists() {
   const [tasksList, setTasksList] = useState<TaskData[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<string[]>([]);
   const [selectedId, setSelectedId] = useState(0);
+  const [titleValu, setTitleValu] = useState("");
+  const [statusValu, setStatusValu] = useState("");
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -27,12 +30,13 @@ export default function TasksLists() {
 
   let getAllTasks = async (
     title?: string,
-    pageNo?: string,
-    pageSize?: number
+    pageNo?: number,
+    pageSize?: number,
+    status?: string | number
   ) => {
     try {
       let response = await axiosInstance.get(TASKSURL.GET_TASKALL, {
-        params: { pageSize: pageSize, pageNumber: pageNo, title: title },
+        params: { pageSize: pageSize, pageNumber: pageNo, title: title, status:status },
       });
 
       const updatedTasks = response?.data.data.map((task: any) => ({
@@ -55,8 +59,16 @@ export default function TasksLists() {
       console.error(error);
     }
   };
+  const getTitle = (input:any) => {
+    getAllTasks( input.target.value,1,5,statusValu);
+    setTitleValu(input.target.value)
+  };
+  const getStatus = (input:any) => {
+    setStatusValu(input.target.value);
+    getAllTasks(titleValu,1,5,input.target.value);
+  };
 
-  let deleteTask = async () => {
+  const deleteTask = async () => {
     try {
       await axiosInstance.delete(TASKSURL.DELETE_TASK(selectedId));
       toast?.success("Task deleted successfully!");
@@ -89,18 +101,35 @@ export default function TasksLists() {
     <>
       <div className="d-flex justify-content-between p-4 bg-white ">
         <h3>Tasks</h3>
-        <Link to='/create-task' className="btn-add">+ Add New Task</Link>
+        <Link to='/tasks/create-task' className="btn-add">+ Add New Task</Link>
       </div>
 
       <div className="bg-white m-5">
         {/* Search Section */}
         <div className="row mb-4">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-4 mx-2">
             <input
+            onChange={getTitle}
               type="text"
               placeholder="Search by title ..."
-              className="form-control rounded-5"
+              className="form-control rounded-5 ps-2"
             />
+          </div>
+          <div className="col-md-4 mt-4 mx-2">
+          <select
+          onChange={getStatus}
+            
+            className="form-select rounded-5 ps-2 "
+            aria-label="Default select example"
+          >
+            <option selected value="" disabled>
+              
+            Filter
+            </option>
+            <option value="ToDo">ToDo</option>
+            <option value="InProgress">InProgress</option>
+            <option value="Done">Done</option>
+          </select> 
           </div>
         </div>
 
@@ -193,7 +222,7 @@ export default function TasksLists() {
                         <span>Delete</span>
                       </Dropdown.Item>
                       <Dropdown.Item href="#/action-2">
-                        <i className="fa-regular fa-pen-to-square Task-list-icon mx-3"></i>
+                      <Link to={`/tasks/${task.id}`}><i className="fa-regular fa-pen-to-square Task-list-icon mx-3"></i>                      </Link>
                         <span>Edit</span>
                       </Dropdown.Item>
                     </Dropdown.Menu>

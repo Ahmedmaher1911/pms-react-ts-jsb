@@ -47,7 +47,7 @@ function App() {
         {path: 'projects/new-project', element: <ProjectForm/>},
         {path: 'projects/:projectId', element: <ProjectForm/>},
         {path: 'tasks', element: <TaskLists/>},
-        {path: 'create-task', element: <TaskForm/>},
+        {path: 'tasks/create-task', element: <TaskForm/>},
         {path: 'tasks/:taskId', element: <TaskForm/>},
         {path: 'usres', element: <UserLists/>}
       ]
