@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+.Tasks-header th {
+  background-color: #315951e5 !important;
+  font-family: Montserrat;
+  color: white;
+  font-weight: 200;
+}
+.Tasks-list-body td {
+  font-family: Montserrat;
+  color: #4f4f4f !important;
+}
+.chevron {
+  font-size: 10px;
+}
+
+/* Remove the border from the last th element to avoid extra line */
+th:last-child {
+  border-right: none;
+}
+
+.status {
+  display: inline-block; /* Makes the td shrink to fit its content */
+}
+.Task-list-icon {
+  color: #009247 !important;
+}
+/* Change the ::after pseudo-element content to custom content */
+.dropdown-toggle::after {
+  content: none !important; /* This replaces the icon with custom text */
+}
+.Tasks-list-dropdown {
+  background-color: transparent !important;
+  width: 20px;
+}
+.Tasks-list-icon-toggle {
+  color: #0e382f !important;
+}
+
+.form-control {
+  border-radius: 0.25rem;
+  padding: 0.5rem; /* Optional: Adjust padding for the input */
+}
+
+input[type="text"] {
+  width: 100%; /* Ensure search input takes the full width */
+}
+
+.bg-purple {
+  background-color: #e4e1f5;
+}
