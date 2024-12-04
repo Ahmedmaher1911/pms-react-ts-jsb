@@ -3,6 +3,7 @@ import { axiosInstance, PROJECT_URL } from "../../../../services/EndPoints";
 import { Button, Dropdown, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "../ProjectLists/TasksAndProjectsLists.css";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 // Define TaskData interface
 interface TaskData {
@@ -28,7 +29,10 @@ export default function ProjectLists() {
   const [arrayOfPages, setArrayOfPages] = useState<string[]>([]);
   const [selectedId, setSelectedId] = useState(0);
   const [show, setShow] = useState(false);
-
+  const [searchParams , setSearchParams] = useSearchParams();
+  const title = searchParams.get("title")|| '';
+  const pageNo = searchParams.get("pageNumber")|| 1;
+const navigate  = useNavigate();
   const handleClose = () => setShow(false);
   const handleShow = (id: number) => {
     setSelectedId(id);
@@ -37,7 +41,9 @@ export default function ProjectLists() {
 
   const getTitleValue = (input: any) => {
     setTitleValue(input.target.value);
-    getAllProjects(input.target.value);
+    setSearchParams({ title: input.target.value, pageNumber: "1" });
+  getAllProjects(input.target.value);
+    
   };
 
   let getAllProjects = async (
@@ -49,15 +55,14 @@ export default function ProjectLists() {
       let response = await axiosInstance.get(
         PROJECT_URL.GIT_PROJECTS_FOR_MANAGER,
         {
-          params: { pageSize: pageSize, pageNumber: pageNo, title: title },
+          params: { pageSize: 2, pageNumber: pageNo, title: title },
         }
       );
       setProjectsList(response?.data?.data);
-      setArrayOfPages(
-        Array<string>(response?.data?.totalNumberOfPages)
-          .fill()
-          .map((_, i) => (i + 1).toString())
-      );
+      const totalPages = response?.data?.totalNumberOfPages || 1;
+      const pages = Array.from({ length: totalPages }, (_, i) => (i + 1).toString());
+      setArrayOfPages(pages);
+      
     } catch (error) {
       toast?.error("Error fetching data!");
       console.error(error);
@@ -68,23 +73,27 @@ export default function ProjectLists() {
     try {
       await axiosInstance.delete(PROJECT_URL.DELETE_PROJECT(selectedId));
       toast?.success("Project deleted successfully!");
-      getAllProjects();
+      getAllProjects(title, pageNo);
     } catch (error) {
       toast?.error(error?.response?.data?.message || "Error deleting project.");
       console.error(error);
     }
     handleClose();
   };
-
+  const handlePageChange = (page: string) => {
+    setSearchParams({ title, pageNumber: page });
+  };
   useEffect(() => {
-    getAllProjects();
-  }, []);
+    getAllProjects(title, pageNo);
+  }, [title, pageNo]);
 
   return (
     <>
       <div className="d-flex justify-content-between p-4 bg-white ">
         <h3>Projects</h3>
-        <button className="btn-add">+ Add New Project</button>
+       
+        <button className="btn-add" onClick={()=>{navigate("new-project")}}>+ Add New Project</button>
+        
       </div>
 
       <div className="bg-white m-5">
@@ -153,7 +162,7 @@ export default function ProjectLists() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">
+                      <Dropdown.Item >
                         <button
                           className="Task-list-icon"
                           onClick={() => handleShow(project.id)}
@@ -162,9 +171,11 @@ export default function ProjectLists() {
                         </button>
                         <span>Delete</span>
                       </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
+                      <Dropdown.Item >
+                        <Link to={`${project.id}`} className="text-decoration-none text-black">
                         <i className="fa-regular fa-pen-to-square Task-list-icon mx-3"></i>
                         <span>Edit</span>
+                        </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
@@ -204,7 +215,7 @@ export default function ProjectLists() {
               <li key={index} className="page-item">
                 <button
                   className="page-link"
-                  onClick={() => getAllProjects(titleValue, page, 10)}
+                  onClick={() => handlePageChange(page)}
                 >
                   {page}
                 </button>

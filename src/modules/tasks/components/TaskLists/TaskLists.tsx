@@ -39,7 +39,7 @@ export default function TasksLists() {
         status: task.status,
         creationDate: task.creationDate,
         employee: task.employee,
-        projectTitle: task.project ? task.project.title : "N/A", // Correct mapping for project title
+        projectTitle: task.project ? task.project.title : "N/A", 
         id: task.id,
       }));
 

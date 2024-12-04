@@ -1,0 +1,16 @@
+.form-container{
+    margin-block: 10%;
+    padding: 3%;
+}
+.form-lab{
+    color: #4F4F4F;
+}
+.submit-btn{
+   background-color: #EF9B28; 
+   color: white;
+}
+
+.submit-btn:hover{
+    background-color: #FFC107;
+    color: white;
+}

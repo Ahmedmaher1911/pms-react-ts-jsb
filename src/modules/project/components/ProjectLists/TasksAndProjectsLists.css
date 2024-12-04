@@ -48,3 +48,7 @@ input[type="text"] {
 .bg-purple {
   background-color: #e4e1f5;
 }
+button{
+  background-color: transparent;
+  border: none;
+}

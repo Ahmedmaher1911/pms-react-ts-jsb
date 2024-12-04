@@ -57,5 +57,6 @@ input:focus {
   color: #8391a1;
   cursor: pointer;
   right: 10px;
-  
+  background-color: transparent;
+  border: none;
 }

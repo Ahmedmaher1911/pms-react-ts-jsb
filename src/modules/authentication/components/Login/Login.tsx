@@ -4,15 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   AUTH_URL,
-  axiosInstance,
-  axiosInstanceUrl,
+  
+  axiosInstanceURL,
 } from "../../../../services/EndPoints";
 import { useState } from "react";
 import {
   EMAIL_VALIDATION,
   PASWORD_VALIDATION,
 } from "../../../../services/Validation/Validation";
-import axios from "axios";
+
 
 interface loginForm {
   email: string;
@@ -29,7 +29,7 @@ export default function Login() {
 
   const onSubmit = async (data: loginForm) => {
     try {
-      const response = await axiosInstance.post(AUTH_URL.LOGIN, data);
+      const response = await axiosInstanceURL.post(AUTH_URL.LOGIN, data);
       localStorage.setItem("tokenums", response.data.token);
       console.log(response);
       navigate("/dashboard");
