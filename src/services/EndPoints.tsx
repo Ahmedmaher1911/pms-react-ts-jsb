@@ -22,6 +22,12 @@ export const AUTH_URL = {
   VERIFY_ACCOUNT: `/Users/verify`,
 };
 
+// User Endpoints
+export const USER_URL = {
+    GET_USERS: `/Users/Manager`,
+    TOGGEL_USER: (id: number) => `/Users/${id}`
+}
+
 // Project Endpoints
 export const PROJECT_URL = {
   GET_PROJECTS: `/Project/`,
