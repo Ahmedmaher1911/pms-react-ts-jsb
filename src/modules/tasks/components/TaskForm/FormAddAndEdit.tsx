@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { axiosInstance, PROJECT_URL, TASKSURL, USERSURL } from "../../../../services/EndPoints";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Select from 'react-select'
+import { Controller } from "react-hook-form";
 
 
 interface AddTasks {
@@ -12,37 +14,58 @@ interface AddTasks {
   employeeId: string | number,
   projectId: string | number,
 }
+interface Projects {
+  id: number,
+  title: string,
+  description : string,
+  projectId: string | number,
+}   
+interface users {
+  id: number, 
+  userName: string,
+   email: string
+}  
 
 const FormAddAndEdit = () => {
   const [projects, setProjects] = useState();
   const [users, setUsers] = useState();
-  const {register, handleSubmit, setValue,formState:{isSubmitting, errors}} = useForm();
+  const {control,register, handleSubmit, setValue,formState:{isSubmitting, errors}} = useForm();
   const params = useParams()
   const tasksId = params.taskId
-  const isTasks = tasksId == "create-task"
+  const isTasks = tasksId == undefined
   const navigate = useNavigate()
 
-  const onSumbit = async(data:AddTasks)=>{
+  const onSubmit = async (data: AddTasks) => {
     try {
-      await axiosInstance[isTasks? "post" : "put"]( isTasks? TASKSURL.POST_TASK 
-        : TASKSURL.PUT_TASK(tasksId),data
-      )
-      toast.success("Add Tasks")
-      navigate("/tasks")
-
+      const modifiedData = {
+        ...data,
+        employeeId: data.employeeId ? Number(data.employeeId.value) : null, 
+  projectId: data.projectId ? Number(data.projectId.value) : null, 
+      };
+  
+      await axiosInstance[isTasks ? "post" : "put"](
+        isTasks ? TASKSURL.POST_TASK : TASKSURL.PUT_TASK(tasksId),
+        modifiedData
+      );
+      toast.success(isTasks ? "Add Task" : "Edit Task");
+      navigate("/tasks");
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  };
+  
   const getprojects = async () => {
-    const res = await axiosInstance.get(PROJECT_URL.GET_PROJECTS)
-    console.log(res.data.data);
+    const res = await axiosInstance.get(PROJECT_URL.GET_PROJECTS, {
+      params: { pageSize: 2000 }
+
+    })
     
     setProjects(res.data.data)
   }
   const getUsers = async () => {
-    const res = await axiosInstance.get(USERSURL.GET_USERS)
+    const res = await axiosInstance.get(USERSURL.GET_USERS, {
+      params: { pageSize: 2000 }
+    })
     
     setUsers(res.data.data)
   }
@@ -55,8 +78,16 @@ const FormAddAndEdit = () => {
   
           setValue("title", tasks?.title);
           setValue("description", tasks?.description);
-          setValue("employeeId", tasks?.employee);
-          setValue("projectId", tasks?.project?.title);
+          setValue("employeeId", {
+            value: tasks?.employee?.id, 
+            label: tasks?.employee?.userName,
+          });
+          setValue("projectId", {
+            value: tasks?.project?.id, 
+            label: tasks?.project?.title,
+          });
+
+
         }
   
         await getprojects();
@@ -67,12 +98,12 @@ const FormAddAndEdit = () => {
     };
   
     fetchData();
-  }, [tasksId, setValue]); 
+  }, [tasksId,setValue]); 
   
   return (
     <>
     <div className={`${styles["form"]} bg-white shadow p-3 mb-5 bg-body-tertiary rounded mx-5 mt-4`}>
-        <form onSubmit={handleSubmit(onSumbit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>Title</label>
             <input
              {...register("title",{
@@ -92,48 +123,52 @@ const FormAddAndEdit = () => {
            {errors.description  && (
               <p className="text-danger">{errors.description.message}</p>
             )}
+          
             <div className="d-flex justify-content-between">
-              <label>User</label>
-              <label>Project</label>
-            </div>
-            <div className="d-flex" style={{gap:"70px"}}>
-            <select
-            {...register("employeeId", {
-              required: "userName Is Required",
-              validate: (value) => value !== "",
-            })}
-            className="form-select py-2 "
-            aria-label="Default select example"
-          >
-            <option selected value="" disabled>
-              
-            No Users Selected
-            </option>
-            {users?.map((user:any) => (
-              <option key={user?.id} value={user?.id}>
-                {user?.userName}
-              </option>
-            ))}
-          </select> 
+
+           <div className="select">
+          
+           <Controller
+  name="employeeId"
+  control={control}
+  rules={{ required: "User selection is required" }}
+  render={({ field, fieldState: { error } }) => (
+    <div>
+            <label>Users</label>
+
+            <Select
+  {...field}
+  options={users?.map((user: users) => ({
+    value: user.id,
+    label: user.userName,
+  }))}
+/>
+      {error && <p className="text-danger">{error.message}</p>}
+    </div>
+  )}
+/>
+           </div>
+ 
+<Controller
+  name="projectId"
+  control={control}
+  rules={{ required: "Project selection is required" }}
+  render={({ field, fieldState: { error } }) => (
+    <div>
+      <label>Project</label>
+      <Select
+  {...field}
+  options={projects?.map((project: Projects) => ({
+    value: project.id,
+    label: project.title,
+  }))}
+/>
+      {error && <p className="text-danger">{error.message}</p>}
+    </div>
+  )}
+/>
            
-         <select
-            {...register("projectId", {
-              required: "Project Is Required",
-              validate: (value) => value !== "",
-            })}
-            className="form-select py-2 "
-            aria-label="Default select example"
-          >
-            <option selected value="" disabled>
-              
-            No Status Selected
-            </option>
-            {projects?.map((project:any) => (
-              <option key={project?.id} value={project?.id}>
-                {project?.title}
-              </option>
-            ))}
-          </select> 
+      
         
             
             </div>

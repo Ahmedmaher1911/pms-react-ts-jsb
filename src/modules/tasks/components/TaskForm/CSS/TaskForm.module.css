@@ -1,5 +1,6 @@
 .title {
-    padding-block: 1rem;
+    padding-top: 1rem;
+    display: flex;
 }
 .link {
     text-decoration: none;
@@ -33,11 +34,13 @@
 .form input::placeholder {
     color: #C1C1C1;
 }
+
 .form select {
     box-shadow: none !important;
     border: none !important;
     outline:2px solid #ECECEC !important;
     margin-block: 20px;
     height: 3.4rem;
+    width: 200px;
 
 }
