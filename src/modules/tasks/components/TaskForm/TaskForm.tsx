@@ -1,7 +1,12 @@
+import FormAddAndEdit from "./FormAddAndEdit";
+import HeaderForm from "./HeaderForm";
+
 export default function TaskForm() {
+  
   return (
-    <div>
-      <h1>Task Form</h1>
-    </div>
+    <>
+   <HeaderForm/>
+   <FormAddAndEdit/>
+    </>
   )
 }
