@@ -51,8 +51,8 @@
     border-bottom: 1px solid #FFFFFF;
     color: #FFFFFF;
     width: 100%;
-    padding: 5px 0;
-}
+    padding: 5px 0; 
+} 
 .auth-bg form .inputs .input input::placeholder {
     color: #ffffffac;
     font-size: 16px;
@@ -283,9 +283,10 @@ body {
 .btn-add{
   background-color: var(--main-color);
   border: none;
-  padding: 0 30px;
+  padding: 7px 30px;
   border-radius: 30px;
   color: var(--white-color);
+  text-decoration: none;
 }
 table {
   width: 100%;
@@ -294,4 +295,20 @@ table thead{
   background-color: var(--table-color);
   color: var(--white-color);
 }
+.css-b62m3t-container{
+  margin-top: 28px !important;
 
+}
+.css-t3ipsp-control, .css-13cymwt-control, .css-13cymwt-control::placeholder, .css-t3ipsp-control:hover {
+  box-shadow: none !important;
+  border: none !important;
+  outline:2px solid #ECECEC !important;
+  border:2px solid #ECECEC !important;
+  margin-block: 20px;
+  height: 3.4rem;
+  width: 200px;
+  outline:2px solid #ECECEC;
+  border-radius:1rem !important ;
+  border: none;
+  margin-right: 5px;
+}
