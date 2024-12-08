@@ -9,70 +9,75 @@ import {
   PASWORD_VALIDATION,
 } from "../../../../services/Validation/Validation";
 
-interface loginForm {
+// Interface for login form data
+interface LoginForm {
   email: string;
   password: string;
 }
-export default function Login() {
+
+// Props interface for the Login component
+interface LoginProps {
+  saveLoginData: () => void;
+}
+
+// Login Component
+const Login: React.FC<LoginProps> = ({ saveLoginData }) => {
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<loginForm>();
+  } = useForm<LoginForm>();
 
-  const onSubmit = async (data: loginForm) => {
+  const onSubmit = async (data: LoginForm) => {
     try {
       const response = await axiosInstanceURL.post(AUTH_URL.LOGIN, data);
-      console.log(response);
+      localStorage.setItem("token", response.data.token);
+      saveLoginData();
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      console.error("Login failed:", error);
     }
   };
 
   return (
-    <div className={`${styles["containerImg"]}`}>
+    <div className={styles.containerImg}>
       <div>
-        <img src={imgLogo} alt="" />
+        <img src={imgLogo} alt="PMS Logo" />
       </div>
-      <div className={`${styles["fromContainer"]} col-lg-6 col-md-8 mt-3`}>
-        <p className="">welcome to PMS</p>
+      <div className={`${styles.fromContainer} col-lg-6 col-md-8 mt-3`}>
+        <p>Welcome to PMS</p>
         <h1>
-          {" "}
           <u>L</u>ogin
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Email Input */}
           <div className={`${styles["input-group"]} mt-5 mb-3`}>
             <input
               type="text"
-              className={`${styles["inbut"]} form-control`}
+              className={`${styles.inbut} form-control`}
               placeholder="Email"
-              aria-label="email"
-              aria-describedby="basic-addon1"
               {...register("email", EMAIL_VALIDATION)}
             />
             {errors.email && (
               <span className="text-danger">{errors.email.message}</span>
             )}
           </div>
+
+          {/* Password Input */}
           <div className={`${styles["input-group"]} mb-3`}>
             <input
               type={isPasswordVisible ? "text" : "password"}
-              className={`${styles["inbut"]} form-control`}
-              placeholder="password"
-              aria-label="password"
-              aria-describedby="basic-addon1"
+              className={`${styles.inbut} form-control`}
+              placeholder="Password"
               {...register("password", PASWORD_VALIDATION)}
             />
             <button
-              onClick={() => {
-                setIsPasswordVisible(!isPasswordVisible);
-              }}
-              onMouseDown={(e) => e.preventDefault()}
-              onMouseUp={(e) => e.preventDefault()}
-              className={`${styles["visbiltyIcon"]} `}
+              type="button"
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+              className={styles.visbiltyIcon}
             >
               {isPasswordVisible ? (
                 <i className="fa-solid fa-eye"></i>
@@ -81,24 +86,28 @@ export default function Login() {
               )}
             </button>
             {errors.password && (
-              <span className="text-danger ">{errors.password.message}</span>
+              <span className="text-danger">{errors.password.message}</span>
             )}
           </div>
+
+          {/* Links */}
           <div className="links d-flex justify-content-between">
             <Link to="/register" className="text-decoration-none text-white">
-              Register Now ?
+              Register Now?
             </Link>
             <Link
               to="/forget-password"
               className="text-decoration-none text-white"
             >
-              Forget Password ?
+              Forget Password?
             </Link>
           </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`${styles["login-btn"]} btn  btn-lg`}
+            className={`${styles["login-btn"]} btn btn-lg`}
           >
             {isSubmitting ? <i className="fa fa-spinner fa-spin"></i> : "Login"}
           </button>
@@ -106,4 +115,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
